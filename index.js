@@ -1,14 +1,17 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
 const { Pool } = require('pg');
 
+dotenv.config();
+
 const pool = new Pool({
-  user: 'admin_ogp',
-  host: 'demo-database-instance-1.cu4ey6grsfnr.ap-southeast-2.rds.amazonaws.com',
-  database: 'main',
-  password: 'padmin1234',
-  port: 5432, // PostgreSQL default port
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 app.get('/status', (req, res) => res.send({ status: "I'm up and running" }));
